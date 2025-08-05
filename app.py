@@ -80,12 +80,14 @@ if uploaded_file is not None:
     st.pyplot(fig)
 
     # Visualization 5: Sales Amount vs Discount
-    st.subheader("Visualization 5: Sales Amount vs Discount")
-    fig2, ax2 = plt.subplots()
-    ax2.scatter(df['Discount'], df['Sales_Amount'], alpha=0.5, color='purple')
-    ax2.set_xlabel('Discount')
-    ax2.set_ylabel('Sales Amount')
-    ax2.set_title('Sales Amount vs Discount')
-    st.pyplot(fig2)
+    st.subheader("Sales Amount vs Discount")
+
+    fig, ax = plt.subplots(figsize=(8,5))
+    ax.scatter(df['Discount'], df['Sales_Amount'], alpha=0.5, color='purple')
+    ax.set_title('Sales Amount vs Discount')
+    ax.set_xlabel('Discount')
+    ax.set_ylabel('Sales Amount')
+    ax.grid(True)
+    st.pyplot(fig)
 else:
     st.info('Please upload an Excel file to proceed.')
