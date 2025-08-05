@@ -80,7 +80,7 @@ if uploaded_file is not None:
     st.pyplot(fig)
 
     # Visualization 5: Sales Amount vs Discount
-    st.subheader("Sales Amount vs Discount")
+    st.subheader("Visualization 5: Sales Amount vs Discount")
 
     fig, ax = plt.subplots(figsize=(8,5))
     ax.scatter(df['Discount'], df['Sales_Amount'], alpha=0.5, color='purple')
