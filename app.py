@@ -40,9 +40,17 @@ if uploaded_file is not None:
 
     # Visualization 2: Top 5 Products by Revenue
     st.subheader("Top 5 Products by Revenue")
-    top_products = df.groupby('Product_ID')['Sales_Amount'].sum().sort_values(ascending=False).head(5)
-    st.bar_chart(top_products)
 
+    top_products = df.groupby('Product_ID')['Sales_Amount'].sum().sort_values(ascending=False).head(5)
+
+    fig, ax = plt.subplots(figsize=(8,5))
+    top_products.plot(kind='barh', color='orange', ax=ax)
+    ax.set_title('Top 5 Products by Revenue')
+    ax.set_xlabel('Total Revenue')
+    ax.set_ylabel('Product ID')
+    ax.invert_yaxis()  # Put the best-selling product on top
+    st.pyplot(fig)
+    
     # Visualization 3: Revenue per Salesperson
     st.subheader("Revenue by Sales Representative")
     sales_rep_revenue = df.groupby('Sales_Rep')['Sales_Amount'].sum().sort_values(ascending=False)
