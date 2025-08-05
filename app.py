@@ -35,8 +35,16 @@ if uploaded_file is not None:
 
     # Visualization 1: Revenue by Region
     st.subheader("Revenue by Region")
+    
     region_sales = df.groupby('Region')['Sales_Amount'].sum().sort_values(ascending=False)
-    st.bar_chart(region_sales)
+    
+    fig, ax = plt.subplots(figsize=(8,5))
+    region_sales.plot(kind='bar', color='skyblue', ax=ax)
+    ax.set_title('Revenue by Region')
+    ax.set_ylabel('Total Revenue')
+    ax.set_xlabel('Region')
+    plt.xticks(rotation=0)  # Rotate x labels 0 degrees (horizontal)
+    st.pyplot(fig)
 
     # Visualization 2: Top 5 Products by Revenue
     st.subheader("Top 5 Products by Revenue")
@@ -53,8 +61,16 @@ if uploaded_file is not None:
     
     # Visualization 3: Revenue per Salesperson
     st.subheader("Revenue by Sales Representative")
+
     sales_rep_revenue = df.groupby('Sales_Rep')['Sales_Amount'].sum().sort_values(ascending=False)
-    st.bar_chart(sales_rep_revenue)
+    
+    fig, ax = plt.subplots(figsize=(8,5))
+    sales_rep_revenue.plot(kind='bar', color='mediumseagreen', ax=ax)
+    ax.set_title('Revenue by Sales Representative')
+    ax.set_ylabel('Total Revenue')
+    ax.set_xlabel('Sales Rep')
+    plt.xticks(rotation=45)
+    st.pyplot(fig)
 
     # Visualization 4: Customer Type Distribution
     st.subheader("Customer Type Distribution")
