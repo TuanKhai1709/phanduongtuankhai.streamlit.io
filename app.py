@@ -89,5 +89,42 @@ if uploaded_file is not None:
     ax.set_ylabel('Sales Amount')
     ax.grid(True)
     st.pyplot(fig)
+
+   # Model training
+    X = df[['Quantity_Sold', 'Unit_Cost']]
+    y = df['Sales_Amount']
+
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, random_state=42
+    )
+
+    model = LinearRegression()
+    model.fit(X_train, y_train)
+
+    y_pred = model.predict(X_test)
+
+    # Display metrics
+    mse = mean_squared_error(y_test, y_pred)
+    r2 = r2_score(y_test, y_pred)
+
+    st.subheader("Model Performance")
+    st.write(f"**Mean Squared Error (MSE):** {mse:.2f}")
+    st.write(f"**R-squared (R2):** {r2:.2f}")
+
+    # Display comparison table
+    comparison_df = pd.DataFrame({'Actual': y_test, 'Predicted': y_pred})
+    st.subheader("Actual vs Predicted")
+    st.dataframe(comparison_df.head())
+
+    # Plot results
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.scatter(X_test['Quantity_Sold'], y_test, color='blue', label='Actual Sales')
+    ax.scatter(X_test['Quantity_Sold'], y_pred, color='red', marker='x', label='Predicted Sales')
+    ax.set_title('Actual vs. Predicted Sales Amount')
+    ax.set_xlabel('Quantity Sold')
+    ax.set_ylabel('Sales Amount')
+    ax.legend()
+    st.pyplot(fig)
+
 else:
     st.info('Please upload an Excel file to proceed.')
